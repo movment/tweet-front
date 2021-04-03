@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
 import {
   ContainerOutlined,
   HomeOutlined,
@@ -73,37 +72,30 @@ const Header = () => {
         <Container>
           <NavWrapper>
             <NavTop>
-              <Link href="/">
-                <a>
-                  <Nav selected icon={<SlackOutlined />} />
-                </a>
-              </Link>
-              <Link href="/">
-                <a>
-                  <Nav selected icon={<HomeOutlined />} text="홈" />
-                </a>
-              </Link>
+              <Nav selected icon={<SlackOutlined />} href="/" />
+
+              <Nav selected icon={<HomeOutlined />} text="홈" href="/" />
+
               {user && (
                 <>
-                  <Link href={`/user/${user.id}`}>
-                    <a>
-                      <Nav
-                        selected
-                        icon={<ContainerOutlined />}
-                        text="내 트윗"
-                      />
-                    </a>
-                  </Link>
-                  <Link href={`/user/${user.id}/follower`}>
-                    <a>
-                      <Nav selected icon={<SmileOutlined />} text="팔로워" />
-                    </a>
-                  </Link>
-                  <Link href={`/user/${user.id}/following`}>
-                    <a>
-                      <Nav selected icon={<UserOutlined />} text="팔로잉" />
-                    </a>
-                  </Link>
+                  <Nav
+                    selected
+                    icon={<ContainerOutlined />}
+                    text="내 트윗"
+                    href={`/user/${user.id}`}
+                  />
+                  <Nav
+                    selected
+                    icon={<SmileOutlined />}
+                    text="팔로워"
+                    href={`/user/${user.id}/follower`}
+                  />
+                  <Nav
+                    selected
+                    icon={<UserOutlined />}
+                    text="팔로잉"
+                    href={`/user/${user.id}/following`}
+                  />
                 </>
               )}
             </NavTop>

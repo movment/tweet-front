@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../lib/api';
 import { addFollowing, delFollowing } from './profile/profile.slice';
+import api from '../lib/api';
 
 export const follow = createAsyncThunk(
   'thunk/follow',
@@ -17,6 +17,7 @@ export const follow = createAsyncThunk(
     }
   },
 );
+
 export const unfollow = createAsyncThunk(
   'thunk/unfollow',
   async (userData, thunkAPI) => {
@@ -32,6 +33,7 @@ export const unfollow = createAsyncThunk(
     }
   },
 );
+
 export const logout = createAsyncThunk('thunk/logout', async (_, thunkAPI) => {
   try {
     const { data } = await api.authAPI.logout();

@@ -1,9 +1,6 @@
-import { LogoutOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
-import { logout } from '../../reducers/auth/auth.slice';
 
 const Wrapper = styled.div`
   display: flex;

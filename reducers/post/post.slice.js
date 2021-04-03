@@ -2,21 +2,26 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../lib/api';
 import { follow, unfollow, logout } from '../thunk';
 import { getFollowers, getFollowings } from '../profile/profile.slice';
-export const getPosts = createAsyncThunk(
-  'thunk/getPosts',
+
+export const deletePost = createAsyncThunk(
+  'thunk/deletePost',
   async (obj) => {
-    const { data } = await api.postAPI.getPosts(obj);
+    const { data } = await api.postAPI.deletePost(obj);
     return data;
   },
   {
     condition: (_, { getState }) => {
-      const { loading, post } = getState();
-      if (loading['thunk/getPosts']?.loading) {
+      const { loading } = getState();
+      if (loading['thunk/deletePost']?.loading) {
         return false;
       }
     },
   },
 );
+export const getPosts = createAsyncThunk('thunk/getPosts', async (obj) => {
+  const { data } = await api.postAPI.getPosts(obj);
+  return data;
+});
 export const getMorePosts = createAsyncThunk(
   'thunk/getMorePosts',
   async (obj) => {
@@ -25,43 +30,82 @@ export const getMorePosts = createAsyncThunk(
   },
   {
     condition: (_, { getState }) => {
-      const { loading, post } = getState();
+      const { loading } = getState();
       if (loading['thunk/getMorePosts']?.loading) {
         return false;
       }
     },
   },
 );
-
 export const getPost = createAsyncThunk('thunk/getPost', async (obj) => {
   const { data } = await api.postAPI.getPost(obj);
   return data;
 });
-export const addPost = createAsyncThunk('thunk/addPost', async (obj) => {
-  const { data } = await api.postAPI.addPost(obj);
-  return data;
-});
+export const addPost = createAsyncThunk(
+  'thunk/addPost',
+  async (obj) => {
+    const { data } = await api.postAPI.addPost(obj);
+    return data;
+  },
+  {
+    condition: (_, { getState }) => {
+      const { loading } = getState();
+      if (loading['thunk/addPost']?.loading) {
+        return false;
+      }
+    },
+  },
+);
 export const uploadImages = createAsyncThunk(
   'thunk/uploadImages',
   async (FormData) => {
     const { data } = await api.postAPI.uploadImages(FormData);
     return data;
   },
+  {
+    condition: (_, { getState }) => {
+      const { loading } = getState();
+      if (loading['thunk/uploadImages']?.loading) {
+        return false;
+      }
+    },
+  },
 );
-export const likePost = createAsyncThunk('thunk/likePost', async (obj) => {
-  const { data } = await api.postAPI.likePost(obj);
-  return data;
-});
-export const unlikePost = createAsyncThunk('thunk/unlikePost', async (obj) => {
-  const { data } = await api.postAPI.unlikePost(obj);
-  return data;
-});
+export const likePost = createAsyncThunk(
+  'thunk/likePost',
+  async (obj) => {
+    const { data } = await api.postAPI.likePost(obj);
+    return data;
+  },
+  {
+    condition: (_, { getState }) => {
+      const { loading } = getState();
+      if (loading['thunk/likePost']?.loading) {
+        return false;
+      }
+    },
+  },
+);
+export const unlikePost = createAsyncThunk(
+  'thunk/unlikePost',
+  async (obj) => {
+    const { data } = await api.postAPI.unlikePost(obj);
+    return data;
+  },
+  {
+    condition: (_, { getState }) => {
+      const { loading } = getState();
+      if (loading['thunk/unlikePost']?.loading) {
+        return false;
+      }
+    },
+  },
+);
 
 const postSlice = createSlice({
   name: 'post',
   initialState: {
     more: true,
-    user: null,
     posts: [],
     users: {},
     imagePaths: [],
@@ -75,14 +119,15 @@ const postSlice = createSlice({
     [getPosts.fulfilled]: (state, { payload }) => {
       state.posts = payload.Posts;
       state.more = true;
+
       if (payload.Posts.length < 10) state.more = false;
       // 수정
       state.users = state.posts.reduce((acc, cur) => {
         if (!acc[cur.UserId]) {
           acc[cur.UserId] = cur.User;
-          if (cur.User.Followers?.length) {
-            acc[cur.UserId].isFollowing = true;
-          }
+        }
+        if (cur.User.Followers?.length) {
+          acc[cur.UserId].isFollowing = true;
         }
         return acc;
       }, {});
@@ -93,15 +138,20 @@ const postSlice = createSlice({
         state.posts[state.posts.length - 1]?.id ===
         payload.Posts[length - 1]?.id
       ) {
-        console.log('확인');
         return;
       }
+
       state.posts = [...state.posts, ...payload.Posts];
 
       if (payload.Posts.length < 10) state.more = false;
       // 수정
       state.users = state.posts.reduce((acc, cur) => {
-        if (!acc[cur.UserId]) acc[cur.UserId] = cur.User;
+        if (!acc[cur.UserId]) {
+          acc[cur.UserId] = cur.User;
+        }
+        if (cur.User.Followers?.length) {
+          acc[cur.UserId].isFollowing = true;
+        }
         return acc;
       }, {});
     },
@@ -113,13 +163,16 @@ const postSlice = createSlice({
       state.imagePaths = payload.imagePaths;
     },
     [follow.fulfilled]: (state, { payload }) => {
-      state.users[payload.UserId].isFollowing = true;
+      if (state.users[payload.UserId])
+        state.users[payload.UserId].isFollowing = true;
     },
     [unfollow.fulfilled]: (state, { payload }) => {
-      state.users[payload.UserId].isFollowing = false;
+      if (state.users[payload.UserId])
+        state.users[payload.UserId].isFollowing = false;
     },
     [getPost.fulfilled]: (state, { payload }) => {
       state.posts = [payload];
+
       state.users = state.posts.reduce((acc, cur) => {
         if (!acc[cur.UserId]) acc[cur.UserId] = cur.User;
         if (cur.User.Followers?.length) {
@@ -172,6 +225,14 @@ const postSlice = createSlice({
             isFollowing: user.isFollowing || false,
           };
         }
+      });
+    },
+    [deletePost.fulfilled]: (state, { payload }) => {
+      state.posts = state.posts.filter((post) => {
+        if (post.id === payload.PostId) {
+          return false;
+        }
+        return true;
       });
     },
   },

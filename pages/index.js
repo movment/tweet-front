@@ -22,6 +22,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
     client.defaults.headers.Cookie = '';
     const token = getToken(cookie);
     const user = verifyToken(token);
+    /**
+     * if(!user) 쿠키 삭제
+     */
     context.store.dispatch(check(user));
     if (context.req && cookie) client.defaults.headers.Cookie = cookie;
     await Promise.all([

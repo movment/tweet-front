@@ -15,6 +15,9 @@ const hashtagSlice = createSlice({
     [getHashtags.fulfilled]: (state, { payload }) => {
       state.hashtags = payload;
     },
+    [getHashtags.rejected]: (state) => {
+      state.hashtags = [];
+    },
   },
 });
 

@@ -34,7 +34,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addMatcher(
       (action) => action.type.endsWith('/fulfilled'),
       (state, { newType }) => {
-        state[newType].loading = false;
+        if (state[newType]) state[newType].loading = false;
       },
     );
 });

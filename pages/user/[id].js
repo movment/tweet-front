@@ -25,7 +25,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const user = verifyToken(token);
     context.store.dispatch(check(user));
     if (context.req && cookie) client.defaults.headers.Cookie = cookie;
-
     await Promise.all([
       context.store.dispatch(getProfile({ UserId: context.params.id })),
       context.store.dispatch(getPosts({ UserId: context.params.id })),

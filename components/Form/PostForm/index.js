@@ -1,36 +1,25 @@
-import { Avatar, Button, Form, Upload } from 'antd';
-import React, { useCallback, useRef } from 'react';
-import Img from 'next/image';
-import styled from 'styled-components';
-import 'antd/dist/antd.css';
 import {
   CloseCircleTwoTone,
   PictureTwoTone,
   UserOutlined,
 } from '@ant-design/icons';
-
-import { Input } from 'antd';
-import useInput from '../../../lib/hooks/useInput';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { Avatar, Button, Form, Input, message } from 'antd';
+import React, { useCallback, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Img from 'next/image';
+import styled from 'styled-components';
+import useInput from '../../../lib/hooks/useInput';
 import {
   addPost,
   removeImage,
   uploadImages,
 } from '../../../reducers/post/post.slice';
-import { useDispatch, useSelector } from 'react-redux';
 
 const { TextArea } = Input;
 
-const StyledButton = styled(Button)`
-  background: #8ed0f9;
-`;
-const StyledTextArea = styled(TextArea)`
-  padding: 12px;
-  background-color: black;
-`;
 const Wrapper = styled.div`
   display: flex;
-
   min-height: 122px;
   padding: 4px 16px;
 `;
@@ -51,10 +40,7 @@ const RightBottom = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   height: 52px;
-  /* background-color: black; */
   border-top: 1px solid #ebeef0;
-  /* align-self: flex-end;
-  justify-self: flex-end; */
 `;
 const ImgWrapper = styled.div`
   width: 100%;
@@ -75,18 +61,26 @@ const IconWrapper = styled.div`
     background-color: rgb(232, 245, 254);
   }
 `;
+
 const PostForm = () => {
-  const [value, onChange, setValue] = useInput('');
   const imageInput = useRef();
+  const [value, onChange, setValue] = useInput('');
+
   const { imagePaths } = useSelector(({ post }) => post);
   const dispatch = useDispatch();
+
   const onChangeImages = useCallback(
-    (e) => {
+    async (e) => {
       const imageFormData = new FormData();
       [].forEach.call(e.target.files, (file) => {
         imageFormData.append('image', file);
       });
-      dispatch(uploadImages(imageFormData));
+      try {
+        const result = await dispatch(uploadImages(imageFormData));
+        unwrapResult(result);
+      } catch (error) {
+        message.warning('Server Error');
+      }
     },
     [dispatch],
   );
@@ -104,12 +98,13 @@ const PostForm = () => {
       unwrapResult(result);
       setValue('');
     } catch (error) {
-      alert('서버 에러');
+      message.warning('Server Error');
     }
   }, [value, imagePaths, dispatch]);
   const onRemove = useCallback(() => {
     dispatch(removeImage());
   }, [dispatch]);
+
   return (
     <Form encType="multipart/form-data" onFinish={onFinish}>
       <Wrapper>
@@ -135,8 +130,7 @@ const PostForm = () => {
               onChange={onChangeImages}
             />
           </div>
-
-          {imagePaths.map((v, i) => (
+          {imagePaths.map((v) => (
             <ImgWrapper key={v}>
               <Img
                 width="100%"
@@ -151,14 +145,9 @@ const PostForm = () => {
             <IconWrapper onClick={onUpload}>
               <PictureTwoTone />
             </IconWrapper>
-            <StyledButton
-              htmlType="submit"
-              type="primary"
-              shape="round"
-              size="large"
-            >
+            <Button htmlType="submit" type="primary" shape="round" size="large">
               트윗
-            </StyledButton>
+            </Button>
           </RightBottom>
         </RightWrapper>
       </Wrapper>

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
-
+import Head from 'next/head';
 import PostList from '../Post/PostList';
 import Title from '../Title';
 
@@ -10,6 +10,9 @@ const Hashtag = () => {
   console.log(router.query?.id);
   return (
     <>
+      <Head>
+        <title>해시태그 | 트윗</title>
+      </Head>
       <Title>{router.query?.id ? `#${router.query?.id}` : '해시태그'}</Title>
       <PostList hashtag={router.query?.id} />
     </>

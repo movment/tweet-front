@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -40,13 +41,17 @@ const TextWrapper = styled.div`
   }
 `;
 
-const Nav = ({ icon, text, selected }) => {
+const Nav = ({ icon, text, selected, href }) => {
   return (
     <Wrapper>
-      <Container selected={selected}>
-        <IconWrapper>{icon}</IconWrapper>
-        <TextWrapper>{text}</TextWrapper>
-      </Container>
+      <Link href={href}>
+        <a>
+          <Container selected={selected}>
+            <IconWrapper>{icon}</IconWrapper>
+            <TextWrapper>{text}</TextWrapper>
+          </Container>
+        </a>
+      </Link>
     </Wrapper>
   );
 };

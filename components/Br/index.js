@@ -7,8 +7,9 @@ const Wrapper = styled.div`
   border-top: 1px solid #ebeef0;
   border-bottom: 1px solid #ebeef0;
 `;
+
 const Br = () => {
-  return <Wrapper></Wrapper>;
+  return <Wrapper />;
 };
 
 export default Br;

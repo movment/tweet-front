@@ -1,24 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import api from '../../lib/api';
 import { logout } from '../thunk';
+import api from '../../lib/api';
+
 export const login = createAsyncThunk('thunk/login', async (obj, thunkAPI) => {
   try {
     const { data } = await api.authAPI.login(obj);
     return data;
   } catch (error) {
-    // 수정
-    return thunkAPI.rejectWithValue(error.response?.data);
+    if (error.response) return thunkAPI.rejectWithValue(error.response.data);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
-// export const logout = createAsyncThunk('thunk/logout', async (_, thunkAPI) => {
-//   try {
-//     const { data } = await api.authAPI.logout();
-//     return data;
-//   } catch (error) {
-//     // 수정
-//     return thunkAPI.rejectWithValue(error.response?.data);
-//   }
-// });
+
 export const checkAuth = createAsyncThunk(
   'thunk/checkAuth',
   async (_, thunkAPI) => {
@@ -26,8 +19,8 @@ export const checkAuth = createAsyncThunk(
       const { data } = await api.authAPI.check();
       return data;
     } catch (error) {
-      // 수정
-      return thunkAPI.rejectWithValue(error.response?.data);
+      if (error.response) return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
@@ -51,15 +44,10 @@ const authSlice = createSlice({
   },
   extraReducers: {
     [login.fulfilled]: (state, { payload }) => {
-      state.loading = false;
       state.isLoggedIn = true;
       state.user = payload.User;
     },
-    [checkAuth.fulfilled]: (state, { payload }) => {
-      state.isLoggedIn = true;
-      state.user = payload.User;
-    },
-    [checkAuth.rejected]: (state, { payload }) => {
+    [login.rejected]: (state) => {
       state.isLoggedIn = false;
       state.user = null;
     },
@@ -68,6 +56,14 @@ const authSlice = createSlice({
       state.user = null;
     },
     [logout.rejected]: (state) => {
+      state.isLoggedIn = false;
+      state.user = null;
+    },
+    [checkAuth.fulfilled]: (state, { payload }) => {
+      state.isLoggedIn = true;
+      state.user = payload.User;
+    },
+    [checkAuth.rejected]: (state) => {
       state.isLoggedIn = false;
       state.user = null;
     },

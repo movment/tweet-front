@@ -34,7 +34,6 @@ const Login = () => {
         </Link>{' '}
         로그인
       </Title>
-
       <LoginForm />
     </Wrapper>
   );

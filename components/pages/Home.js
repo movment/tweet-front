@@ -1,14 +1,18 @@
 import React from 'react';
-import PostForm from '../Form/PostForm';
+import { useSelector } from 'react-redux';
+import Head from 'next/head';
 import Br from '../Br';
+import PostForm from '../Form/PostForm';
 import PostList from '../Post/PostList';
 import Title from '../Title';
-import { useSelector } from 'react-redux';
 
 const Home = () => {
   const isLoggedIn = useSelector(({ auth }) => auth.isLoggedIn);
   return (
     <>
+      <Head>
+        <title>트윗</title>
+      </Head>
       <Title home>홈</Title>
       {isLoggedIn && (
         <>

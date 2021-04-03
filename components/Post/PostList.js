@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PostItem from './PostItem';
-
 import { getMorePosts } from '../../reducers/post/post.slice';
 
 const throtle = (callback, ms) => {
@@ -43,7 +42,7 @@ const PostList = ({ userid, hashtag, search }) => {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
-  }, [posts, userid, more, hashtag]);
+  }, [posts, search, userid, more, hashtag, dispatch]);
 
   if (!posts.length) return null;
 

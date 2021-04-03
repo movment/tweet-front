@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import signup from './auth/signup.slice';
 import profile from './profile/profile.slice';
 import comment from './comment/comment.slice';
 import auth from './auth/auth.slice';
@@ -17,7 +16,6 @@ const reducer = (state = {}, action) => {
   }
   return combineReducers({
     loading,
-    // signup,
     profile,
     auth,
     comment,
@@ -28,7 +26,7 @@ const reducer = (state = {}, action) => {
 
 const store = configureStore({
   reducer,
-  devTools: true,
+  devTools: process.env.NODE_ENV === 'production' ? false : true,
 });
 
 export const wrapper = createWrapper((context) => store, { debug: false });

@@ -26,7 +26,6 @@ const Signup = () => {
   return (
     <Wrapper>
       <Title>
-        {' '}
         <Link href="/">
           <a>
             <RocketTwoTone />

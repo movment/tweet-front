@@ -1,5 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useInput from '../../lib/hooks/useInput';
@@ -22,7 +22,7 @@ const Comment = ({ postId }) => {
       unwrapResult(result);
       setValue('');
     } catch (error) {
-      alert('다시 시도해주세요.');
+      message.warning('Server Error');
     }
   }, [postId, value, dispatch]);
 

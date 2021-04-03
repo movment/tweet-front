@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import {
+  EllipsisOutlined,
   HeartOutlined,
   HeartTwoTone,
   MessageOutlined,
@@ -8,8 +9,12 @@ import {
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { likePost, unlikePost } from '../../reducers/post/post.slice';
-import { message } from 'antd';
+import {
+  deletePost,
+  likePost,
+  unlikePost,
+} from '../../reducers/post/post.slice';
+import { Button, message, Popover } from 'antd';
 
 const ButtonWrapper = styled.div`
   height: ${({ large }) => (large ? '40px' : '20px')};
@@ -46,7 +51,7 @@ const BtnWrapper = styled.div`
 `;
 
 const ButtonBar = ({ large, post }) => {
-  const { isLoggedIn } = useSelector(({ auth }) => auth);
+  const { isLoggedIn, user } = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
   const onLike = useCallback(
     (e) => {
@@ -65,10 +70,22 @@ const ButtonBar = ({ large, post }) => {
     },
     [isLoggedIn, post.Likers],
   );
+  const onBlock = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
   const onRetweet = useCallback((e) => {
     e.stopPropagation();
     message.warning('기능 구현중');
   });
+  const onRemove = useCallback(
+    (e) => {
+      e.stopPropagation();
+
+      dispatch(deletePost({ PostId: post.id }));
+    },
+    [dispatch, post.id],
+  );
   return (
     <ButtonWrapper large={large}>
       <BtnWrapper color="#1da1f2" bgcolor="#e8f5fe" large={large}>
@@ -95,7 +112,25 @@ const ButtonBar = ({ large, post }) => {
         )}
       </BtnWrapper>
       <BtnWrapper color="#1da1f2" bgcolor="#e8f5fe" large={large}>
-        <UploadOutlined />
+        {/* <UploadOutlined /> */}
+        <Popover
+          content={
+            <Button.Group onClick={onBlock}>
+              {isLoggedIn && user?.id === post.UserId ? (
+                <>
+                  <Button onClick={onBlock}>수정</Button>
+                  <Button type="danger" onClick={onRemove}>
+                    삭제
+                  </Button>
+                </>
+              ) : (
+                <Button>신고</Button>
+              )}
+            </Button.Group>
+          }
+        >
+          <EllipsisOutlined />
+        </Popover>
       </BtnWrapper>
     </ButtonWrapper>
   );
