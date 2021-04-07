@@ -118,7 +118,7 @@ const ButtonBar = ({ large, post }) => {
             <Button.Group onClick={onBlock}>
               {isLoggedIn && user?.id === post.UserId ? (
                 <>
-                  <Button onClick={onBlock}>수정</Button>
+                  {/* <Button onClick={onBlock}>수정</Button> */}
                   <Button type="danger" onClick={onRemove}>
                     삭제
                   </Button>
