@@ -124,7 +124,7 @@ const ButtonBar = ({ large, post }) => {
                   </Button>
                 </>
               ) : (
-                <Button>신고</Button>
+                <Button onClick={onRetweet}>신고</Button>
               )}
             </Button.Group>
           }
