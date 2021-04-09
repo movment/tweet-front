@@ -86,7 +86,7 @@ const PostForm = () => {
   );
   const onUpload = useCallback(() => {
     imageInput.current.click();
-  }, [imageInput.current]);
+  }, [imageInput]);
   const onFinish = useCallback(async () => {
     try {
       const result = await dispatch(
@@ -100,7 +100,7 @@ const PostForm = () => {
     } catch (error) {
       message.warning('Server Error');
     }
-  }, [value, imagePaths, dispatch]);
+  }, [value, imagePaths, dispatch, setValue]);
   const onRemove = useCallback(() => {
     dispatch(removeImage());
   }, [dispatch]);

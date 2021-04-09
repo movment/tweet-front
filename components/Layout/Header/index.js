@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import {
   ContainerOutlined,
@@ -59,13 +59,13 @@ const Header = () => {
   const dispatch = useDispatch();
   const onLogout = useCallback(() => {
     dispatch(logout());
-  }, []);
+  }, [dispatch]);
   const onSignin = useCallback(() => {
     router.push('/signin');
-  }, []);
+  }, [router]);
   const onSignup = useCallback(() => {
     router.push('/signup');
-  }, []);
+  }, [router]);
   return (
     <Wrapper>
       <FixedWrapper>

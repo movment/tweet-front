@@ -5,7 +5,6 @@ import {
   HeartTwoTone,
   MessageOutlined,
   RetweetOutlined,
-  UploadOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -68,7 +67,7 @@ const ButtonBar = ({ large, post }) => {
         }
       }
     },
-    [isLoggedIn, post.Likers],
+    [isLoggedIn, post.Likers, post.id, dispatch],
   );
   const onBlock = useCallback((e) => {
     e.preventDefault();
@@ -77,7 +76,7 @@ const ButtonBar = ({ large, post }) => {
   const onRetweet = useCallback((e) => {
     e.stopPropagation();
     message.warning('기능 구현중');
-  });
+  }, []);
   const onRemove = useCallback(
     (e) => {
       e.stopPropagation();

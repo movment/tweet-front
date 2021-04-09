@@ -24,7 +24,7 @@ const Comment = ({ postId }) => {
     } catch (error) {
       message.warning('Server Error');
     }
-  }, [postId, value, dispatch]);
+  }, [postId, value, dispatch, setValue]);
 
   if (!isLoggedIn) return null;
 
