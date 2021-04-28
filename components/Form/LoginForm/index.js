@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 import styled from 'styled-components';
 import { login } from '../../../reducers/auth/auth.slice';
-import client from '../../../lib/api/client';
+
 const Wrapper = styled.div`
   width: 400px;
   @media (max-width: 450px) {
