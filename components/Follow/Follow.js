@@ -33,7 +33,7 @@ const PostItem = ({ user }) => {
       e.preventDefault();
       router.push(`/user/${user.id}`);
     },
-    [user.id],
+    [user.id, router],
   );
   const onBlock = useCallback((e) => {
     e.stopPropagation();

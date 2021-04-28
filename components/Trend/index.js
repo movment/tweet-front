@@ -48,7 +48,7 @@ const Trend = () => {
     (tag) => () => {
       router.push(`/hashtag/${tag}`);
     },
-    [],
+    [router],
   );
   return (
     <Wrapper>

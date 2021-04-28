@@ -60,7 +60,7 @@ const Search = () => {
         setValue('');
       }
     },
-    [value],
+    [value, router, setValue],
   );
   return (
     <Wrapper>

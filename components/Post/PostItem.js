@@ -45,14 +45,11 @@ const PostItem = ({ post }) => {
       e.preventDefault();
       router.push(`/post/${post.id}`);
     },
-    [post.id],
+    [post.id, router],
   );
-  const onBlock = useCallback(
-    (e) => {
-      e.stopPropagation();
-    },
-    [post.UserId],
-  );
+  const onBlock = useCallback((e) => {
+    e.stopPropagation();
+  }, []);
 
   return (
     <Wrapper onClick={onClick}>

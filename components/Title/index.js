@@ -41,7 +41,7 @@ const Title = ({ children, home }) => {
   const router = useRouter();
   const onClick = useCallback(() => {
     router.back();
-  }, []);
+  }, [router]);
   return (
     <Wrapper>
       {!home && (
