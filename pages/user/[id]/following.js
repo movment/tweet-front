@@ -5,7 +5,6 @@ import client from '../../../lib/api/client';
 import { check } from '../../../reducers/auth/auth.slice';
 import { wrapper } from '../../../reducers/store';
 import { getToken, verifyToken } from '../../../lib/jwt/check';
-import { getPosts } from '../../../reducers/post/post.slice';
 import { getHashtags } from '../../../reducers/hashtag/hashtag.slice';
 import {
   getFollowings,
