@@ -4,6 +4,7 @@ import Head from 'next/head';
 import FollowingList from '../Follow/FollowingList';
 import Profile from '../Profile';
 import Title from '../Title';
+import Br from '../Br';
 
 const User = () => {
   const { user } = useSelector(({ profile }) => profile);
@@ -16,6 +17,7 @@ const User = () => {
       </Head>
       <Title>팔로잉</Title>
       <Profile />
+      <Br />
       <FollowingList />
     </>
   );

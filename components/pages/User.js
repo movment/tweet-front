@@ -4,6 +4,7 @@ import Head from 'next/head';
 import PostList from '../Post/PostList';
 import Profile from '../Profile';
 import Title from '../Title';
+import Br from '../Br';
 
 const User = () => {
   const user = useSelector(({ profile }) => profile.user);
@@ -16,6 +17,7 @@ const User = () => {
       </Head>
       <Title>트윗</Title>
       <Profile />
+      <Br />
       <PostList userid={user.id} />
     </>
   );
