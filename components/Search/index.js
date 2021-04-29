@@ -56,7 +56,7 @@ const Search = () => {
   const onKeyDown = useCallback(
     (e) => {
       if (e.key === 'Enter') {
-        if (value) router.push(`/search/${value}`);
+        if (value) router.push(`/search/${encodeURIComponent(value)}`);
         setValue('');
       }
     },
