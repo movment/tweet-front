@@ -48,6 +48,7 @@ const PostItem = ({ post }) => {
     [post.id, router],
   );
   const onBlock = useCallback((e) => {
+    e.preventDefault();
     e.stopPropagation();
   }, []);
 
