@@ -8,10 +8,17 @@ const Wrapper = styled.div`
   padding: 0 16px;
 `;
 
+const NoData = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+`;
+
 const CommentList = () => {
   const { comments, total } = useSelector(({ comment }) => comment);
 
-  if (!comments) return null;
+  if (!comments?.length) return <NoData>No Comments</NoData>;
 
   return (
     <Wrapper>
