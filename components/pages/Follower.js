@@ -13,7 +13,18 @@ const User = () => {
   return (
     <>
       <Head>
-        <title>팔로워 | 트윗</title>
+        <title>Follower | Tweet</title>
+        <meta name="description" content={`${user.nickname}의 팔로워 목록`} />
+        <meta property="og:title" content={`Follower | Tweet`} />
+        <meta
+          property="og:description"
+          content={`${user.nickname}의 팔로워 목록`}
+        />
+        <meta property="og:image" content="vercel.svg" />
+        <meta
+          property="og:url"
+          content={`https://doinki.com/user/${user.id}/follower`}
+        />
       </Head>
       <Title>팔로워</Title>
       <Profile />

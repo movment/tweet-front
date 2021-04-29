@@ -13,7 +13,7 @@ const User = () => {
   return (
     <>
       <Head>
-        <title>트윗</title>
+        <title>{user.nickname} | Tweet</title>
       </Head>
       <Title>트윗</Title>
       <Profile />

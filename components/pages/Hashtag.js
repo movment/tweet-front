@@ -11,7 +11,7 @@ const Hashtag = () => {
   return (
     <>
       <Head>
-        <title>해시태그 | 트윗</title>
+        <title>Hashtag | Tweet</title>
       </Head>
       <Title>{router.query?.id ? `#${router.query?.id}` : '해시태그'}</Title>
       <PostList hashtag={router.query?.id} />

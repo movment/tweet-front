@@ -7,7 +7,7 @@ const User = () => {
   return (
     <>
       <Head>
-        <title>포스트 | 트윗</title>
+        <title>Post | Tweet</title>
       </Head>
       <Title>트윗</Title>
       <Post />

@@ -9,7 +9,7 @@ const User = () => {
   return (
     <>
       <Head>
-        <title>검색 | 트윗</title>
+        <title>Search | Tweet</title>
       </Head>
       <Title>{router.query?.id}</Title>
       <PostList search={router.query?.id} />

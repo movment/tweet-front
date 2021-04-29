@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>트윗</title>
+        <title>Tweet</title>
       </Head>
       <Title home>홈</Title>
       {isLoggedIn && (
