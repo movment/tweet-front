@@ -2,6 +2,14 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PostItem from './PostItem';
 import { getMorePosts } from '../../reducers/post/post.slice';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+`;
 
 const throtle = (callback, ms) => {
   let loading = false;
@@ -44,7 +52,7 @@ const PostList = ({ userid, hashtag, search }) => {
     };
   }, [posts, search, userid, more, hashtag, dispatch]);
 
-  if (!posts.length) return null;
+  if (!posts?.length) return <Wrapper>No Tweets</Wrapper>;
 
   return (
     <div>
