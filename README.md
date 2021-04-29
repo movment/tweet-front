@@ -64,7 +64,7 @@ React / Next.js / Styled-components / Redux-toolkit
 ![검색](https://user-images.githubusercontent.com/50521449/116533851-d012bf00-a91c-11eb-9f48-04f0c49ead1f.gif)
 
 ### 팔로우
-![팔로우](https://user-images.githubusercontent.com/50521449/116533863-d2751900-a91c-11eb-82f2-7b616ca9b2ca.gif
+![팔로우](https://user-images.githubusercontent.com/50521449/116533863-d2751900-a91c-11eb-82f2-7b616ca9b2ca.gif)
 
 ### 좋아요
 ![하트](https://user-images.githubusercontent.com/50521449/116533865-d2751900-a91c-11eb-9091-ac1b579570ea.gif)
