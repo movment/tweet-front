@@ -20,7 +20,6 @@ const User = () => {
           property="og:description"
           content={`${user.nickname}의 팔로워 목록`}
         />
-        <meta property="og:image" content="vercel.svg" />
         <meta
           property="og:url"
           content={`https://doinki.com/user/${user.id}/follower`}

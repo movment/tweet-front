@@ -14,6 +14,13 @@ const User = () => {
     <>
       <Head>
         <title>{user.nickname} | Tweet</title>
+        <meta name="description" content={`${user.nickname} 프로필`} />
+        <meta property="og:title" content={`${user.nickname} | Tweet`} />
+        <meta property="og:description" content={`${user.nickname} 프로필`} />
+        <meta
+          property="og:url"
+          content={`https://doinki.com/user/${user.id}`}
+        />
       </Head>
       <Title>트윗</Title>
       <Profile />

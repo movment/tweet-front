@@ -12,6 +12,10 @@ const Home = () => {
     <>
       <Head>
         <title>Tweet</title>
+        <meta name="description" content={`Tweet Home`} />
+        <meta property="og:title" content={`Tweet`} />
+        <meta property="og:description" content={`Tweet Home`} />
+        <meta property="og:url" content={`https://doinki.com/`} />
       </Head>
       <Title home>홈</Title>
       {isLoggedIn && (

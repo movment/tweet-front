@@ -10,6 +10,18 @@ const User = () => {
     <>
       <Head>
         <title>Search | Tweet</title>
+        <meta name="description" content={`${router.query?.id} 트윗 목록`} />
+        <meta property="og:title" content={`Search | Tweet`} />
+        <meta
+          property="og:description"
+          content={`${router.query?.id} 트윗 목록`}
+        />
+        <meta
+          property="og:url"
+          content={`https://doinki.com/search/${encodeURIComponent(
+            router.query?.id,
+          )}`}
+        />
       </Head>
       <Title>{router.query?.id}</Title>
       <PostList search={router.query?.id} />
