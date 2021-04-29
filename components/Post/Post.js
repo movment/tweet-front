@@ -10,6 +10,7 @@ import ErrorPost from './ErrorPost';
 import CommentList from '../Comment/CommentList';
 import CommentForm from '../Comment/CommentForm';
 import FollowButton from '../Button/FollowButton';
+import Br from '../Br';
 
 const Wrapper = styled.article`
   display: flex;
@@ -58,6 +59,8 @@ const Post = () => {
         )}
         <Content large postData={post.content}></Content>
         <ButtonBar large post={post} />
+        <Br />
+        <br />
         <CommentForm postId={post.id} />
         <CommentList />
       </Container>
