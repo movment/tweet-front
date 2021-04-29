@@ -7,6 +7,7 @@ import ButtonBar from './ButtonBar';
 import Content from './Content';
 import Header from './Header';
 import ErrorPost from './ErrorPost';
+import Link from 'next/link';
 import CommentList from '../Comment/CommentList';
 import CommentForm from '../Comment/CommentForm';
 import FollowButton from '../Button/FollowButton';
@@ -43,8 +44,16 @@ const Post = () => {
       <Container>
         <Header height="48px">
           <Profile>
-            <Avatar size={48}>{post.User.nickname[0]}</Avatar>
-            <div>{post.User.nickname}</div>
+            <Link href={`/user/${post.UserId}`}>
+              <a>
+                <Avatar size={48}>{post.User.nickname[0]}</Avatar>
+              </a>
+            </Link>
+            <div>
+              <Link href={`/user/${post.UserId}`}>
+                <a>{post.User.nickname}</a>
+              </Link>
+            </div>
           </Profile>
           <div>
             <FollowButton UserId={post.User.id} />
