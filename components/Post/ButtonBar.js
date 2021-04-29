@@ -74,11 +74,13 @@ const ButtonBar = ({ large, post }) => {
     e.stopPropagation();
   }, []);
   const onRetweet = useCallback((e) => {
+    e.preventDefault();
     e.stopPropagation();
     message.warning('기능 구현중');
   }, []);
   const onRemove = useCallback(
     (e) => {
+      e.preventDefault();
       e.stopPropagation();
 
       dispatch(deletePost({ PostId: post.id }));
@@ -113,6 +115,7 @@ const ButtonBar = ({ large, post }) => {
       <BtnWrapper color="#1da1f2" bgcolor="#e8f5fe" large={large}>
         {/* <UploadOutlined /> */}
         <Popover
+          onClick={onBlock}
           content={
             <Button.Group onClick={onBlock}>
               {isLoggedIn && user?.id === post.UserId ? (
